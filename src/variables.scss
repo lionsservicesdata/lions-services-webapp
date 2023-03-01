@@ -1,0 +1,48 @@
+@mixin root {
+
+	// Dark mode
+	--bg: #1D2125;
+	--bg-i: #FFFFFF;
+	--ac: #24292E;
+	--t: #FFFFFF;
+	--t-i: #000000;
+
+	// Light mode
+	// --bg: #F3F3F3;
+	// --bg-i: #1D2125;
+	// --ac: #FFFFFF;
+	// --t: #000000;
+	// --t-i: #FFFFFF;
+
+	font-family: 'Nunito';
+	outline: none;
+}
+
+@mixin rBox {
+	border-radius: .75rem;
+}
+
+@mixin rrBox {
+	border-radius: 2rem;
+}
+
+@mixin dropShadow {
+	box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.03);
+}
+
+@mixin icon {
+	stroke: var(--t);
+	fill: var(--t);
+}
+
+@mixin center {
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+@mixin space1rem {
+	flex-direction: column;
+	display: flex;
+	gap: 1rem;
+}

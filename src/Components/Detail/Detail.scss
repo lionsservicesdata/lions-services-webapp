@@ -1,0 +1,8 @@
+@import "../../variables.scss";
+
+.detailCont {
+	background-color: var(--bg);
+	@include space1rem;
+	padding: 1rem;
+	height: 100%;
+}

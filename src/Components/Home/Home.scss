@@ -1,0 +1,8 @@
+@import "../../variables.scss";
+
+.homeCont {
+	background-color: var(--bg);
+	@include space1rem;
+	padding: 1rem;
+	height: 100%;
+}
