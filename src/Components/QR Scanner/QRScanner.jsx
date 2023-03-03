@@ -2,11 +2,12 @@ import { Navbar } from '../Common/Navbar/Navbar';
 import { QrReader } from 'react-qr-reader'
 import { useState } from 'react'
 import React from 'react'
+import sound from '/src/Assets/beep.mp3'
 
 
 export const QRScanner = () => {
 	var [data, setData] = useState('No Scan');
-	var audio = new Audio('/src/Assets/beep.mp3');
+	const audio = new Audio(sound);
 	return (
 		<div className='qrScannerPage'>
 			<Navbar></Navbar>
