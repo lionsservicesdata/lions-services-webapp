@@ -1,6 +1,10 @@
 
 //Initializations
 
+const claire_beachhouse = '47.27.0.162'
+var server = ''
+server = claire_beachhouse
+
 const functions = require("firebase-functions");
 const express = require('express');
 const app = express();
@@ -9,7 +13,7 @@ const sql = require('mssql');
 const config = {
     user: 'user', // sql user
     password: '7U6^060JeHsk', //sql user password
-    server: '127.0.0.1',
+    server: server,
     database: 'Production',
     options: {
         trustedconnection: true,
