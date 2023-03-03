@@ -4,19 +4,15 @@ import React from 'react'
 import "./Detail.scss"
 
 export const Detail = () => {
-
-	const bodyText = "this is the detail page"
-	const buttonText = "back"
-
 	return (
 		<div className='detailCont'>
 			<Link to={"/"}>
 				<Button
-					text = { buttonText }
+					text = {"Home"}
 				/>
 			</Link>
 			<div className='detailBody'>
-				{ bodyText }
+				{"this is the detail page"}
 			</div>
 		</div>
 	)
