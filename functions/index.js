@@ -1,32 +1,48 @@
+
+//Initializations
+
 const functions = require("firebase-functions");
 const express = require('express');
 const app = express();
-
-const config = {
-    user: 'USERNAME',
-    password: 'PASSSWORD',
-    server: 'YOUR_SERVER_IP',
-    database: 'DB_NAME',
-    synchronize: true,  //optional
-    trustServerCertificate: true, //optional
-};
-
-//API START\\
-app.get('/getCustomers', (req, res) => {
-const cusCode = req.query.cusCode;
 const sql = require('mssql');
 
-sql.connect(config, function (err) {
-if (err) { console.log(err); return; }
-var request = new sql.Request();
-request.query(`ADD_YOUR_SQL_WITH_HERE_cusCode AS ${cusCode}`, function (err, recordsets) {
-if (err) { console.log(err); return; }
-             if (recordsets) {
+const config = {
+    user: 'user', // sql user
+    password: '7U6^060JeHsk', //sql user password
+    server: '127.0.0.1',
+    database: 'Production',
+    options: {
+        trustedconnection: true,
+        enableArithAbort: true,
+    },
+    trustServerCertificate: true,
+    port: 1433
+}
+//Helper Functions
+
+
+//API Endpoints\\
+app.get('/getCustomers', (req, res) => {
+    const cusCode = req.query.cusCode;
+    sql.connect(config, function (err) {
+        if (err) { console.log(err); return; }
+        var request = new sql.Request();
+        request.query(`ADD_YOUR_SQL_WITH_HERE_cusCode AS ${cusCode}`, function (err, recordsets) {
+            if (err) { console.log(err); return; }
+            if (recordsets) {
                 res.status(200).send(recordsets);
-             }
+            }
         })
     })
 });
+
+app.get('/QR', (req, res) => {
+    console.log('GET Request Received')
+    getTable('QR').then((data) => {
+      res.send(data[0]);
+    })
+    console.log('GET Response Sent')
+  });
 
 app.get('/timeStamp', (req, res) => {
     res.send(`${Date.now()}`);
