@@ -1,38 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
 
-const base = "";
+const base = 'https://us-central1-lions-services-data-collection.cloudfunctions.net/app';
 
-const jsonHeader = {"Content-Type":"application/json"}
-const xformHeader = {"Content-Type": "application/x-www-form-urlencoded"}
-
-
-function req(method, uri, route, headers, params) {
-	if(headers === xformHeader) {
-		let paramsL = new URLSearchParams(Object.entries(params)).toString();
-		params = paramsL;
-	};
-
-	var config = {
-		method: method,
-		url: uri+route,
-		headers: headers,
-		data : params
-	};
-
-	return axios(config)
-};
-
-// CREATE REQUEST 
-export const getUserData = async (username) => {
-	let resp = req(
-		"post", 
-		base, 
-		"/api/route", 
-		jsonHeader, 
-		{
-			"username": username,
-		}
-	);
-
+//GET Request
+export const getSQL = async (route) => {
+	const resp = await axios.get(`${base}/${route}`);
 	return resp;
 }
+
+//POST Request
+export const postSQL = async (data, route) => {
+	const resp = await axios.post(`${base}/${route}`, data);
+	return resp;
+}
+
+
+

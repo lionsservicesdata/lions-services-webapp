@@ -22,12 +22,14 @@ const config = {
     trustServerCertificate: true,
     port: 1433
 }
+
+
 //Helper Functions
 
 async function getTable(tableName) {
     try {
       let pool = await sql.connect(config);
-      let products = await pool.request().query('SELECT * from ' + tableName);
+      let products = await pool.request().query('SELECT * FROM ' + tableName);
       return products.recordsets;
     }
     catch (error) {
@@ -35,20 +37,8 @@ async function getTable(tableName) {
     }
   }
 
-//API Endpoints\\
-app.get('/getCustomers', (req, res) => {
-    const cusCode = req.query.cusCode;
-    sql.connect(config, function (err) {
-        if (err) { console.log(err); return; }
-        var request = new sql.Request();
-        request.query(`ADD_YOUR_SQL_WITH_HERE_cusCode AS ${cusCode}`, function (err, recordsets) {
-            if (err) { console.log(err); return; }
-            if (recordsets) {
-                res.status(200).send(recordsets);
-            }
-        })
-    })
-});
+
+//API Endpoints
 
 app.get('/QR', (req, res) => {
     console.log('GET Request Received')
@@ -58,8 +48,5 @@ app.get('/QR', (req, res) => {
     console.log('GET Response Sent')
   });
 
-app.get('/timeStamp', (req, res) => {
-    res.send(`${Date.now()}`);
-})
 //API END\\
 exports.app = functions.https.onRequest(app);
