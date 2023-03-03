@@ -48,5 +48,29 @@ app.get('/QR', (req, res) => {
     console.log('GET Response Sent')
   });
 
+app.get('/Production_Systems', (req, res) => {
+    console.log('GET Request Received')
+    getTable('Production_Systems').then((data) => {
+      res.send(data[0]);
+    })
+    console.log('GET Response Sent')
+  });
+
+  app.get('/Stations', (req, res) => {
+    console.log('GET Request Received')
+    getTable('Stations').then((data) => {
+      res.send(data[0]);
+    })
+    console.log('GET Response Sent')
+  });
+
+  app.get('/Lots', (req, res) => {
+    console.log('GET Request Received')
+    getTable('Lots').then((data) => {
+      res.send(data[0]);
+    })
+    console.log('GET Response Sent')
+  });
+
 //API END\\
 exports.app = functions.https.onRequest(app);
