@@ -24,6 +24,16 @@ const config = {
 }
 //Helper Functions
 
+async function getTable(tableName) {
+    try {
+      let pool = await sql.connect(config);
+      let products = await pool.request().query('SELECT * from ' + tableName);
+      return products.recordsets;
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
 
 //API Endpoints\\
 app.get('/getCustomers', (req, res) => {
