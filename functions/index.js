@@ -9,6 +9,8 @@ const functions = require("firebase-functions");
 const express = require('express');
 const app = express();
 const sql = require('mssql');
+const cors = require('cors');
+app.use(cors())
 
 const config = {
     user: 'user', // sql user
@@ -23,7 +25,6 @@ const config = {
     port: 1433
 }
 
-
 //Helper Functions
 
 async function getTable(tableName) {
@@ -36,7 +37,6 @@ async function getTable(tableName) {
       console.log(error);
     }
   }
-
 
 //API Endpoints
 
