@@ -2,6 +2,7 @@
 //Initializations
 
 const claire_beachhouse = '47.27.0.162'
+const noah_house = '99.140.243.86'
 var server = ''
 server = claire_beachhouse
 
@@ -14,7 +15,7 @@ app.use(cors())
 
 const config = {
     user: 'user', // sql user
-    password: '7U6^060JeHsk', //sql user password
+    password: ' ', //sql user password
     server: server,
     database: 'Production',
     options: {
