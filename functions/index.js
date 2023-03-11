@@ -3,8 +3,9 @@
 
 const claire_beachhouse = '47.27.0.162'
 const noah_house = '99.140.243.86'
+const natalie_sql = 'seniordesigndata.database.windows.net'
 var server = ''
-server = noah_house
+server = natalie_sql
 
 const functions = require("firebase-functions");
 const express = require('express');
@@ -14,8 +15,8 @@ const cors = require('cors');
 app.use(cors())
 
 const config = {
-    user: 'user', // sql user
-    password: ' ', //sql user password
+    user: 'CloudSA2d97a179', // sql user
+    password: '8w0Zq@^*^8C!', //sql user password
     server: server,
     database: 'Production',
     options: {
