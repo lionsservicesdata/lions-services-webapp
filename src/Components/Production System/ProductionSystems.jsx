@@ -6,7 +6,6 @@ export const ProductionSystems = () => {
 	return (
 		<div className='productionSystemsPage'>
 			<Navbar></Navbar>
-			<DisplayTable tableName={'Production_Systems'}></DisplayTable>
 		</div>
 	)
 }
