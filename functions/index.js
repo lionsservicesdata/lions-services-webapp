@@ -3,9 +3,8 @@
 
 const claire_beachhouse = '47.27.0.162'
 const noah_house = '99.140.243.86'
-const noah_house_lan = '10.0.0.104'
 var server = ''
-server = noah_house_lan
+server = noah_house
 
 const functions = require("firebase-functions");
 const express = require('express');
