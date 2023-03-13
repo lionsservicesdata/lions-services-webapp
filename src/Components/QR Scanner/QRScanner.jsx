@@ -5,7 +5,7 @@ import React from 'react'
 
 export const QRScanner = () => {
 	var [data, setData] = useState('No Scan');
-	const audio = new Audio('../src/Assets/beep.mp3');
+	var audio = new Audio('../src/Assets/beep.mp3');
 	return (
 		<div className='qrScannerPage'>
 			<Navbar></Navbar>

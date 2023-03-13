@@ -15,7 +15,7 @@ export const App = () => {
 					<Route path="/" exact component={Home} />
 					<Route path="/QRScanner" component={QRScanner} />
 					<Route path="/Lots" component={Lots} />
-					<Route path="/Production Systems" exact component={ProductionSystems} />
+					<Route path="/ProductionSystems" exact component={ProductionSystems} />
 					<Route path="/Testing" exact component={Testing} />
 				</Switch>
 			</BrowserRouter>
