@@ -30,13 +30,38 @@ const config = {
 async function getTable(tableName) {
     try {
       let pool = await sql.connect(config);
-      let products = await pool.request().query('SELECT * FROM ' + tableName);
-      return products.recordsets;
+      let rows = await pool.request().query('SELECT * FROM ' + tableName);
+      return rows.recordsets;
     }
     catch (error) {
       console.log(error);
     }
   }
+
+async function postTable(tableName, data) {
+  try {
+    let  pool = await  sql.connect(config);
+    let  insert = await  pool.request()
+    .insert('production_system_name',sql.NVarChar, data.production_system_name)
+    .insert('product_name',sql.NVarChar, data.product_name)
+    .insert('creation_date',sql.DateTime, data.creation_date)
+  .query('INSER INTO '+tableName+' Values (@production_system_name, @product_name, @creation_date')
+  return  insert.recordsets;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+//Template for POST Request
+
+app.post('/Production_Systems', function(req, res) {
+  console.log('POST Request Received')
+  let data = {...req.body}
+  postTable('Production_Systems',data)
+  res.end();
+  console.log('POST Response Sent')
+});
 
 //API Endpoints
 
