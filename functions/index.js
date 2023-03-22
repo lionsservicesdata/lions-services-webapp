@@ -46,6 +46,7 @@ async function postTable(tableName, data) {
     .insert('product_name',sql.NVarChar, data.product_name)
     .insert('creation_date',sql.DateTime, data.creation_date)
   .query('INSER INTO '+tableName+' Values (@production_system_name, @product_name, @creation_date')
+  console.log('Post Request Works')
   return  insert.recordsets;
   }
   catch (error) {
@@ -58,7 +59,9 @@ async function postTable(tableName, data) {
 app.post('/Production_Systems', function(req, res) {
   console.log('POST Request Received')
   let data = {...req.body}
+  console.log(data)
   postTable('Production_Systems',data)
+  console.log('post table worked')
   res.end();
   console.log('POST Response Sent')
 });
