@@ -11,9 +11,10 @@ export const ProductionSystems = () => {
 
 	const postData = () => {
 		try{
-			setData(new Production_System(document.getElementById('productionSystem').value, document.getElementById('productName').value, String(new Date.getTime())))
-		}catch(e) {
-			console.log(e)
+			setData(new Production_System(document.getElementById('productionSystem').value, document.getElementById('productName').value, String(new Date.getTime())));
+		} 
+		catch (e) {
+			console.log(e);
 		}
 		
 		axiosPost(data,'Production_Systems').then((r)=> {
