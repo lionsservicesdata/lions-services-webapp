@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-const base = 'https://us-central1-lions-services-data-collection.cloudfunctions.net/app';
 
+const firebase = 'https://us-central1-lions-services-data-collection.cloudfunctions.net/app';
+const local = 'http://127.0.0.1:3001';
+const base = firebase
 //GET Request
 export const axiosGet = async (route) => {
 	const resp = await axios.get(`${base}/${route}`);

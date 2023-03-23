@@ -1,5 +1,5 @@
 {
-  "name": "react-redux-router-vite-starter",
+  "name": "lions-services-webapp",
   "version": "1.0.0",
   "scripts": {
     "preview": "vite preview",
