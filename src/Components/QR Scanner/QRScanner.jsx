@@ -4,7 +4,7 @@ import { useState } from 'react'
 import React from 'react'
 import { QRSCAN } from '../../Util/QRSCAN';
 import { axiosPost } from '../../Util/API';
-
+import { getSQLDateTime } from '../../Util/HelperFunctions';
 
 export const QRScanner = () => {
 
@@ -17,17 +17,6 @@ export const QRScanner = () => {
 		}).catch((e) => {
 			console.log(e)
 			console.log('postError')});
-	}
-
-	const getSQLDateTime = () => {
-		const date = new Date();
-		var datetime = date.getFullYear()+'-'
-		+ date.getMonth()+'-'
-		+ date.getDate()+ ' '
-		+ date.getHours()+':'
-		+date.getMinutes()+':'
-		+date.getSeconds()
-		return datetime
 	}
 
 	return (

@@ -1,10 +1,12 @@
 import { Navbar } from '../Common/Navbar/Navbar';
 import React from 'react'
+import DisplayTable from '../Common/DisplayTable/DisplayTable';
 
 export const Lots = () => {
 	return (
 		<div className='lotsPage'>
 			<Navbar></Navbar>
+			<DisplayTable tableName={'Lots'}></DisplayTable>
 			In this page you will be able to generate a new lot
 
 			Once the lot is generated
