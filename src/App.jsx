@@ -6,6 +6,7 @@ import { Lots } from "./Components/Lot Management/Lots";
 import { ProductionSystems } from "./Components/Production System/ProductionSystems";
 import { QRScanner } from "./Components/QR Scanner/QRScanner";
 import { ControlStations } from "./Components/Control Stations/ControlStations";
+import { Testing } from "./Components/Testing/Testing";
 
 
 export const App = () => {
@@ -18,6 +19,7 @@ export const App = () => {
 					<Route path="/Lots" component={Lots} />
 					<Route path="/ProductionSystems" exact component={ProductionSystems} />
 					<Route path="/ControlStations" exact component={ControlStations} />
+					<Route path="/Testing" exact component={Testing}/>
 				</Switch>
 			</BrowserRouter>
 		</div>

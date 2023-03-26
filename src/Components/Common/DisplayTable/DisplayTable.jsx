@@ -29,7 +29,7 @@ export default function DisplayTable({ tableName }) {
     var table = getTable()
     var header = getHeader(table)
     var tableData = table
-    
+
     return (
 
         <table>
