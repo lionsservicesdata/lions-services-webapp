@@ -3,12 +3,14 @@ import React from 'react'
 import DisplayTable from '../Common/DisplayTable/DisplayTable';
 import { InputField } from '../Common/InputField/InputField';
 import { Lot } from '../../Util/Lot';
-import { useState } from 'react';
 import { getSQLDateTime } from '../../Util/HelperFunctions';
-import { axiosPost } from '../../Util/API';
+import { axiosGet, axiosPost } from '../../Util/API';
+import { useEffect, useState } from 'react';
+import { QR } from '../../Util/QR';
 
 export const Lots = () => {
-
+	var stations = getTable('Control_Stations')
+	var [maxID, setMaxID] = useState(0)
 	var [data, setData] = useState(new Lot(
 		'',
 		0,
@@ -23,8 +25,70 @@ export const Lots = () => {
 		''
 	));
 
+	function getTable(tableName) {
+
+		const [table, setTable] = useState([{}]);
+
+		useEffect(() => {
+			axiosGet(tableName).then((e) => {
+				setTable(e.data)
+			})
+				.catch((err) => {
+					console.log(err.message)
+				})
+		}, [])
+
+		return (table)
+	}
+
+	const createQRLot = (data) => {
+		var system_stations = []
+		var QRAmounts = []
+		stations.forEach(element => {
+			if (element.production_system_name == data.production_system_name && element.station_type == 'scan') {
+				system_stations.push(element)
+				QRAmounts.push(data.order_size / element.bundle_size)
+			}
+		})
+
+		axiosGet('MaxID').then((r) => {
+			setMaxID(r.data[0][""])
+		}).catch((e) => {
+			console.log(e)
+			console.log('postError')
+		})
+
+		system_stations.forEach(element => {
+			for (let i = 1; i < element+1; i++) {
+				nthQR = new QR(
+					maxID+i,
+					,
+					data.lot_number,
+					data.production_system_name,
+					,
+					0,
+					getSQLDateTime(),
+					'1900-01-01 00:00:00',
+					data.production_system_name+'-'+lot_number+'-'++
+
+				)
+
+				axiosPost(nthQR, 'QR').then((r) => {
+					console.log(r)
+				}).catch((e) => {
+					console.log(e)
+					console.log('postError')
+				});
+			}
+		})
+
+
+
+	}
+
+
 	const postData = (event) => {
-		event.preventDefault()
+		event.preventDefault();
 		data = new Lot(
 			document.getElementById('production_system_name').value,
 			document.getElementById('lot_number').value,
@@ -36,8 +100,7 @@ export const Lots = () => {
 			document.getElementById('lot_date').value,
 			document.getElementById('due_date').value,
 			document.getElementById('customer').value,
-			document.getElementById('customer_name').value
-		);
+			document.getElementById('customer_name').value)
 
 		axiosPost(data, 'Lots').then((r) => {
 			console.log(r)
@@ -45,6 +108,10 @@ export const Lots = () => {
 			console.log(e)
 			console.log('postError')
 		});
+
+		createQRLot(data)
+
+
 	}
 
 	const updateData = (event) => {
@@ -94,7 +161,7 @@ export const Lots = () => {
 			console.log('postError')
 		});
 	}
-	
+
 	return (
 		<div className='lotsPage'>
 			<Navbar></Navbar>

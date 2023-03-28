@@ -21,7 +21,6 @@ export const QRScanner = () => {
 
 	return (
 		<div className='qrScannerPage'>
-			<Navbar></Navbar>
 		
 			<h1>{JSON.stringify(data)}</h1>
 

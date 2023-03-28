@@ -3,7 +3,7 @@ import React from 'react'
 import { InputField } from '../Common/InputField/InputField';
 import { useState, useEffect } from 'react';
 import { axiosGet } from '../../Util/API';
-import { SelectField } from '../Common/SelectField/SelectField';
+
 export const Testing = () => {
 
 	const logchild = (event) => {
@@ -35,9 +35,8 @@ export const Testing = () => {
 				<InputField id={'fname'} label = 'First Name'/>
 				<InputField id={'lname'} label = 'Last Name'/>
 				<InputField id={'testing_ident'} label={'hello'} />
-				<SelectField label ='testing' options={getSelectEntries('Production_Systems_List')}></SelectField>
 				<input type="submit" value="Submit" onClick={(e) => {logchild(e)}}/>
-				
+				<input type="file"/>
 			</form>
 		</div>
 	)
