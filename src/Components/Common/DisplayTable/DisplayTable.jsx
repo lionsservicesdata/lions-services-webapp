@@ -11,7 +11,6 @@ export default function DisplayTable({ tableName }) {
       }
 
     function getTable() {
-
         const [table, setTable] = useState([{}]);
 
         useEffect(() => {
@@ -29,6 +28,7 @@ export default function DisplayTable({ tableName }) {
     var table = getTable()
     var header = getHeader(table)
     var tableData = table
+    console.log(table.length)
 
     return (
 

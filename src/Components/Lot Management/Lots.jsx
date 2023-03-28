@@ -41,36 +41,42 @@ export const Lots = () => {
 		return (table)
 	}
 
-	const createQRLot = (data) => {
-		var system_stations = []
-		var QRAmounts = []
-		stations.forEach(element => {
-			if (element.production_system_name == data.production_system_name && element.station_type == 'scan') {
-				system_stations.push(element)
-				QRAmounts.push(data.order_size / element.bundle_size)
-			}
-		})
-
+	const getMaxID = () => {
 		axiosGet('MaxID').then((r) => {
 			setMaxID(r.data[0][""])
 		}).catch((e) => {
 			console.log(e)
 			console.log('postError')
 		})
+	}
 
-		system_stations.forEach(element => {
-			for (let i = 1; i < element+1; i++) {
-				nthQR = new QR(
-					maxID+i,
-					,
+	const createQRLot = (data) => {
+		var system_stations = []
+		var Station_Data = []
+		stations.forEach(element => {
+			if (element.production_system_name == data.production_system_name && element.station_type == 'scan') {
+				system_stations.push(element)
+				Station_Data.push([element.station_name, data.lot_number, data.order_size / element.bundle_size, element.bundle_size])
+			}
+
+		})
+
+		getMaxID()
+		var count = maxID
+		for (let i = 0; i < system_stations.length; i++) {
+
+			for (let j = 0; j < Station_Data[i][2]; j++) {
+				count = count+1
+				var nthQR = new QR(
+					count,
+					Station_Data[i][0],
 					data.lot_number,
 					data.production_system_name,
-					,
+					Station_Data[i][3],
 					0,
 					getSQLDateTime(),
 					'1900-01-01 00:00:00',
-					data.production_system_name+'-'+lot_number+'-'++
-
+					data.production_system_name + '-' + data.lot_number + '-' + Station_Data[i][0] + '-' + count
 				)
 
 				axiosPost(nthQR, 'QR').then((r) => {
@@ -80,10 +86,7 @@ export const Lots = () => {
 					console.log('postError')
 				});
 			}
-		})
-
-
-
+		}
 	}
 
 
@@ -110,8 +113,6 @@ export const Lots = () => {
 		});
 
 		createQRLot(data)
-
-
 	}
 
 	const updateData = (event) => {
