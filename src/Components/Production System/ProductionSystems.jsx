@@ -4,13 +4,12 @@ import { axiosPost, axiosGet } from '../../Util/API'
 import { useState, useEffect } from 'react'
 import { Production_System } from '../../Util/Production_System'
 import { getSQLDateTime } from '../../Util/HelperFunctions'
-import DisplayTable from '../Common/DisplayTable/DisplayTable'
-import { InputField } from '../Common/InputField/InputField'
 import MaterialTable from "@material-table/core"
 
 export const ProductionSystems = () => {
 	var [data, setData] = useState([])
 	var [reset, setReset] = useState(0)
+
 	useEffect(() => {
 		axiosGet('Production_Systems').then((e) => {
 			setData(e.data)
@@ -20,62 +19,10 @@ export const ProductionSystems = () => {
 			})
 	}, [reset])
 
-	const postData = (event) => {
-		event.preventDefault()
-
-		data = new Production_System(
-			document.getElementById('production_system_name').value,
-			document.getElementById('product_name').value,
-			getSQLDateTime()
-		)
-
-		axiosPost(data, 'Production_Systems').then((r) => {
-			console.log(r)
-		}).catch((e) => {
-			console.log(e)
-			console.log('postError')
-		})
-	}
-
-	const updateData = (event) => {
-		event.preventDefault()
-
-		let updated_system = new Production_System(
-			document.getElementById('update_production_system_name').value,
-			document.getElementById('update_product_name').value,
-			getSQLDateTime()
-		)
-
-		axiosPost(updated_system, 'Update_Production_Systems').then((r) => {
-			console.log(r)
-		}).catch((e) => {
-			console.log(e)
-			console.log('postError')
-		})
-	}
-
-	const deleteData = (event) => {
-		event.preventDefault()
-
-		data = new Production_System(
-			document.getElementById('delete_production_system_name').value,
-			'',
-			getSQLDateTime()
-		)
-
-		axiosPost(data, 'Delete_Production_Systems').then((r) => {
-			console.log(r)
-		}).catch((e) => {
-			console.log(e)
-			console.log('postError')
-		})
-	}
-
-	const DEMO_COLS = [
+	const COLS = [
 		{ field: "production_system_name", title: "Production System Name", editable: 'onAdd' },
 		{ field: "product_name", title: "Product Name" },
-		{ field: "date_created", title: "Date Created" },
-		{ name: "animal", field: "animal", lookup: {1: "Porcupine", 2: "Broccoli"}}
+		{ field: "date_created", title: "Date Created" }
 	]
 
 	return (
@@ -83,7 +30,7 @@ export const ProductionSystems = () => {
 			<Navbar></Navbar>
 			<MaterialTable title='Production Systems'
 				data={data}
-				columns={DEMO_COLS}
+				columns={COLS}
 				options={{
 					paging: false,
 					pageSize: 6,       // make initial page size
@@ -104,7 +51,6 @@ export const ProductionSystems = () => {
 								console.log('postError')
 							})
 						}),
-
 					onRowUpdate: (newData, oldData) => {
 						return new Promise((resolve, reject) => {
 
@@ -122,7 +68,7 @@ export const ProductionSystems = () => {
 								console.log(e)
 								console.log('postError')
 							})
-
+							setReset(reset++)
 						});
 					},
 					onRowDelete: oldData =>

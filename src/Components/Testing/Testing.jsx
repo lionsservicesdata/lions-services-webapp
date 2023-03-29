@@ -32,8 +32,9 @@ export const Testing = () => {
   ];
   const DEMO_COLS = [
     { field: "id", title: "Id" },
-    { field: "name", title: "Name" },
-  ];
+    { field: "name", title: "Name" }
+    
+    ];
 
   return (
     <div className='testingPage'>
