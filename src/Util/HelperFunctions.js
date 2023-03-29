@@ -6,7 +6,6 @@ export const getSQLDateTime = () => {
     + String(Number(date.getHours())-Number(4))+':'
     +date.getMinutes()+':'
     +date.getSeconds()
-    console.log(datetime)
     return datetime
 }
 
