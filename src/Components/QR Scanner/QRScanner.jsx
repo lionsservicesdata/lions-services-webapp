@@ -11,10 +11,7 @@ export const QRScanner = () => {
 	const [success, setSuccess] = useState(false);
 	var [data, setData] = useState();
 	var audio = new Audio('../src/Assets/beep.mp3');
-	const cameraDirections = ['user', 'environment']
-
 	const [environment, setEnv] = useState("environment");
-
 
 	const scanQR = (data) => {
 		axiosPost(data, 'QRSCAN').then((r) => {
@@ -28,7 +25,6 @@ export const QRScanner = () => {
 	const successHandler = () => {
 		setSuccess(true);
 		setTimeout(() => { setSuccess(false); }, 5000)
-
 	}
 
 	const switchEnvironment = () => {

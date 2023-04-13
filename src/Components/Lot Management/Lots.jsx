@@ -18,6 +18,8 @@ export const Lots = () => {
 	var [Control_Stations, setControl_Stations] = useState([])
 	var [uploadedSheet, setUploadedSheet] = useState([])
 
+	const headerArray = []
+
 	useEffect(() => {
 		axiosGet('Lots').then((e) => {
 			setData(e.data)
@@ -123,14 +125,18 @@ export const Lots = () => {
 				const workbook = read(data, { type: "array" });
 				const sheetName = workbook.SheetNames[0];
 				const worksheet = workbook.Sheets[sheetName];
-				setUploadedSheet([utils.sheet_to_json(worksheet)]);
+
+				worksheet['A1'].v = 'TEST'
+				console.log(worksheet['A1'].v)
+				console.log(worksheet)
+				setUploadedSheet(utils.sheet_to_json(worksheet));
 			};
 			reader.readAsArrayBuffer(e.target.files[0]);
-			
 		}
 	}
-	
+
 	const handleClick = () => {
+		console.log(uploadedSheet)
 		axiosPost(uploadedSheet, 'Upload_Lots').then((r) => {
 			console.log(r)
 			setReset(reset + 1)
@@ -234,7 +240,7 @@ export const Lots = () => {
 			</div>
 			<form>
 				<label htmlFor="upload">Upload File: </label>
-				<br/>
+				<br />
 				<input
 					type="file"
 					name="upload"
@@ -242,7 +248,7 @@ export const Lots = () => {
 					onChange={readUploadFile}
 				/>
 			</form>
-			<br/>
+			<br />
 			<button onClick={handleClick}>Submit JSON</button>
 
 		</div>
