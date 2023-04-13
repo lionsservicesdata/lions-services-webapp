@@ -6,8 +6,7 @@ import { Lots } from "./Components/Lot Management/Lots";
 import { ProductionSystems } from "./Components/Production System/ProductionSystems";
 import { QRScanner } from "./Components/QR Scanner/QRScanner";
 import { ControlStations } from "./Components/Control Stations/ControlStations";
-import { Testing } from "./Components/Testing/Testing";
-
+import { QRTable } from "./Components/QR Table/QRTable";
 
 export const App = () => {
 	return (
@@ -19,7 +18,7 @@ export const App = () => {
 					<Route path="/Lots" component={Lots} />
 					<Route path="/ProductionSystems" exact component={ProductionSystems} />
 					<Route path="/ControlStations" exact component={ControlStations} />
-					<Route path="/Testing" exact component={Testing}/>
+					<Route path="/QRTable" exact component={QRTable} />
 				</Switch>
 			</BrowserRouter>
 		</div>

@@ -8,12 +8,11 @@ export const Home = () => {
 		<div className='homePage'>
 			<Navbar></Navbar>
 			<a href="https://zsbportal.zebra.com/home" target="_blank" rel="noopener noreferrer">Printer</a>
-			<br/>
+			<br />
 			<a href="https://drive.google.com/drive/my-drive" target="_blank" rel="noopener noreferrer">Google Drive</a>
-			<br/>
+			<br />
 			<a href="https://drive.google.com/drive/folders/1-TkD_vIj-ab0ne4yLexNX9avnjsBeCKo" target="_blank" rel="noopener noreferrer">Google Form</a>
-			<Link to={"/QRScanner"}><Button text = "QRScanner" /></Link>
-			
+			<Link to={"/QRScanner"}><Button text="QR Scanner" /></Link>
 		</div>
 	)
 }

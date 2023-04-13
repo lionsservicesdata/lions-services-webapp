@@ -12,7 +12,6 @@ export const Navbar = () => {
 				<li><Link to={"/Lots"}><Button text = "Lots" /></Link></li>
 				<li><Link to={"/ProductionSystems"}><Button text = "Production Systems" /></Link></li>
 				<li><Link to={"/ControlStations"}><Button text = "Control Stations" /></Link></li>
-				<li><Link to={"/Testing"}><Button text = "Testing" /></Link></li>
 			</ul>
 		</div>
 	)
