@@ -126,12 +126,14 @@ export const Lots = () => {
 				setUploadedSheet([utils.sheet_to_json(worksheet)]);
 			};
 			reader.readAsArrayBuffer(e.target.files[0]);
+			
 		}
 	}
 	
 	const handleClick = () => {
 		axiosPost(uploadedSheet, 'Upload_Lots').then((r) => {
 			console.log(r)
+			setReset(reset + 1)
 		}).catch((e) => {
 			console.log(e)
 			console.log('postError')
@@ -231,7 +233,8 @@ export const Lots = () => {
 				/>
 			</div>
 			<form>
-				<label htmlFor="upload">Upload File</label>
+				<label htmlFor="upload">Upload File: </label>
+				<br/>
 				<input
 					type="file"
 					name="upload"
@@ -239,7 +242,7 @@ export const Lots = () => {
 					onChange={readUploadFile}
 				/>
 			</form>
-			
+			<br/>
 			<button onClick={handleClick}>Submit JSON</button>
 
 		</div>
