@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { QR } from '../../Util/QR';
 import MaterialTable from "@material-table/core"
 import "./Lots.scss"
-import { read, utils } from "xlsx"
+import { read, utils, writeFile } from "xlsx"
 
 
 export const Lots = () => {
@@ -17,8 +17,6 @@ export const Lots = () => {
 	var [Production_Systems, setProduction_Systems] = useState([])
 	var [Control_Stations, setControl_Stations] = useState([])
 	var [uploadedSheet, setUploadedSheet] = useState([])
-
-	const headerArray = []
 
 	useEffect(() => {
 		axiosGet('Lots').then((e) => {
@@ -57,7 +55,7 @@ export const Lots = () => {
 
 	const COLS = [
 		{ field: "lot_number", title: "Lot #", editable: 'onAdd' },
-		{ field: "order", title: "Order", editable: 'onAdd' },
+		{ field: "order_", title: "Order", editable: 'onAdd' },
 		{ field: "order_date", title: "Order Date", editable: 'onAdd' },
 		{ field: "clin", title: "CLIN", editable: 'onAdd' },
 		{ field: "nsn_number", title: "NSN #", editable: 'onAdd' },
@@ -71,8 +69,9 @@ export const Lots = () => {
 		{ field: "date_open", title: "Date Open", editable: 'onAdd' },
 		{ field: "date_start", title: "Date Start", editable: 'onAdd' },
 		{ field: "date_closed", title: "Date closed", editable: 'onAdd' },
-		{ field: "status", title: "Status", editable: 'onAdd' },
+		{ field: "status_", title: "Status", editable: 'onAdd' },
 		{ field: "comments", title: "Comments", editable: 'onAdd' },
+		{ field: "qr_lot_generated", title: "QR Lot Generated", lookup: [{0:0,1:1}]},
 		{ field: "is_printed", title: "Printed" },
 		{ field: "production_system_name", title: "Production System", lookup: getProductionSystems() },
 	]
@@ -115,7 +114,6 @@ export const Lots = () => {
 		// 	}
 		// }
 	}
-
 	const readUploadFile = (e) => {
 		e.preventDefault();
 		if (e.target.files) {
@@ -125,19 +123,15 @@ export const Lots = () => {
 				const workbook = read(data, { type: "array" });
 				const sheetName = workbook.SheetNames[0];
 				const worksheet = workbook.Sheets[sheetName];
-
-				worksheet['A1'].v = 'TEST'
-				console.log(worksheet['A1'].v)
-				console.log(worksheet)
-				setUploadedSheet(utils.sheet_to_json(worksheet));
+				setUploadedSheet(utils.sheet_to_json(worksheet))
 			};
 			reader.readAsArrayBuffer(e.target.files[0]);
 		}
 	}
 
 	const handleClick = () => {
-		console.log(uploadedSheet)
 		axiosPost(uploadedSheet, 'Upload_Lots').then((r) => {
+			console.log(uploadedSheet)
 			console.log(r)
 			setReset(reset + 1)
 		}).catch((e) => {
@@ -167,7 +161,7 @@ export const Lots = () => {
 
 								let brocolli = new Lot(
 									newData.lot_number,
-									newData.order,
+									newData.order_,
 									newData.order_date,
 									newData.clin,
 									newData.nsn_number,
@@ -181,8 +175,9 @@ export const Lots = () => {
 									newData.date_open,
 									newData.date_start,
 									newData.date_closed,
-									newData.status,
+									newData.status_,
 									newData.comments,
+									newData.qr_lot_generated,
 									newData.is_printed,
 									newData.production_system_name
 								)
@@ -204,7 +199,7 @@ export const Lots = () => {
 
 								let brocolli = new Lot(
 									newData.lot_number,
-									newData.order,
+									newData.order_,
 									newData.order_date,
 									newData.clin,
 									newData.nsn_number,
@@ -218,8 +213,9 @@ export const Lots = () => {
 									newData.date_open,
 									newData.date_start,
 									newData.date_closed,
-									newData.status,
+									newData.status_,
 									newData.comments,
+									newData.qr_lot_generated,
 									newData.is_printed,
 									newData.production_system_name
 								)
