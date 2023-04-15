@@ -1,5 +1,4 @@
 import { Navbar } from '../Common/Navbar/Navbar';
-import React from 'react'
 import { Lot } from '../../Util/Lot';
 import { getSQLDateTime } from '../../Util/HelperFunctions';
 import { axiosGet, axiosPost } from '../../Util/API';
@@ -8,7 +7,14 @@ import { QR } from '../../Util/QR';
 import MaterialTable from "@material-table/core"
 import "./Lots.scss"
 import { read, utils, writeFile } from "xlsx"
-
+import { Button, IconButton } from '@material-ui/core';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 export const Lots = () => {
 	var [maxID, setMaxID] = useState(0)
@@ -17,7 +23,7 @@ export const Lots = () => {
 	var [Production_Systems, setProduction_Systems] = useState([])
 	var [Control_Stations, setControl_Stations] = useState([])
 	var [uploadedSheet, setUploadedSheet] = useState([])
-
+	const [value, setValue] = React.useState(0);
 	useEffect(() => {
 		axiosGet('Lots').then((e) => {
 			setData(e.data)
@@ -71,8 +77,8 @@ export const Lots = () => {
 		{ field: "date_closed", title: "Date closed", editable: 'onAdd' },
 		{ field: "status_", title: "Status", editable: 'onAdd' },
 		{ field: "comments", title: "Comments", editable: 'onAdd' },
-		{ field: "qr_lot_generated", title: "QR Lot Generated", lookup: [{0:0,1:1}]},
-		{ field: "is_printed", title: "Printed" },
+		{ field: "qr_lot_generated", title: "QR Lot Generated", lookup: { 0: 0, 1: 1 } },
+		{ field: "is_printed", title: "Printed", lookup: { 0: 0, 1: 1 } },
 		{ field: "production_system_name", title: "Production System", lookup: getProductionSystems() },
 	]
 
@@ -138,11 +144,29 @@ export const Lots = () => {
 			console.log(e)
 			console.log('postError')
 		})
+		setUploadedSheet([])
 	}
 
 	return (
 		<div className='lotsPage'>
 			<Navbar></Navbar>
+			<Box sx={{ width: 500 }}>
+				<BottomNavigation
+					showLabels
+					value={value}
+					onChange={(event, newValue) => {
+						setValue(newValue);
+					}}
+				>
+					<BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+					<BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+					<BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+				</BottomNavigation>
+			</Box>
+			<br />
+			<Button variant="contained" component="label">Upload<input hidden multiple type="file" onChange={readUploadFile} /></Button>
+			<Button variant="contained" onClick={handleClick}>Upload Lot Spreadsheet</Button>
+			<br />
 			<div className='materialTable'>
 				<MaterialTable title='Control Stations'
 					data={data}
@@ -151,7 +175,7 @@ export const Lots = () => {
 						pageSize: 10,       // make initial page size
 						emptyRowsWhenPaging: false,   // To avoid of having empty rows
 						pageSizeOptions: [10, 15, 20, 25, 50, 100],    // rows selection options
-						actionsColumnIndex: 19,
+						actionsColumnIndex: 20,
 						filtering: true
 					}}
 					editable={{
@@ -234,19 +258,6 @@ export const Lots = () => {
 					}}
 				/>
 			</div>
-			<form>
-				<label htmlFor="upload">Upload File: </label>
-				<br />
-				<input
-					type="file"
-					name="upload"
-					id="upload"
-					onChange={readUploadFile}
-				/>
-			</form>
-			<br />
-			<button onClick={handleClick}>Submit JSON</button>
-
 		</div>
 
 
