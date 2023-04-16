@@ -1,20 +1,15 @@
 import { Navbar } from '../Common/Navbar/Navbar';
 import { Lot } from '../../Util/Lot';
-import { getSQLDateTime } from '../../Util/HelperFunctions';
 import { axiosGet, axiosPost } from '../../Util/API';
 import { useEffect, useState } from 'react';
-import { QR } from '../../Util/QR';
 import MaterialTable from "@material-table/core"
 import "./Lots.scss"
-import { read, utils, writeFile } from "xlsx"
-import { Button, IconButton } from '@material-ui/core';
+import { read, utils } from "xlsx"
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PublishIcon from '@mui/icons-material/Publish';
+import IconButton from '@mui/material/IconButton';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import Button from '@mui/material/Button';
 
 export const Lots = () => {
 	var [maxID, setMaxID] = useState(0)
@@ -23,7 +18,7 @@ export const Lots = () => {
 	var [Production_Systems, setProduction_Systems] = useState([])
 	var [Control_Stations, setControl_Stations] = useState([])
 	var [uploadedSheet, setUploadedSheet] = useState([])
-	const [value, setValue] = React.useState(0);
+
 	useEffect(() => {
 		axiosGet('Lots').then((e) => {
 			setData(e.data)
@@ -120,6 +115,7 @@ export const Lots = () => {
 		// 	}
 		// }
 	}
+
 	const readUploadFile = (e) => {
 		e.preventDefault();
 		if (e.target.files) {
@@ -130,6 +126,7 @@ export const Lots = () => {
 				const sheetName = workbook.SheetNames[0];
 				const worksheet = workbook.Sheets[sheetName];
 				setUploadedSheet(utils.sheet_to_json(worksheet))
+				console.log(worksheet)
 			};
 			reader.readAsArrayBuffer(e.target.files[0]);
 		}
@@ -150,25 +147,19 @@ export const Lots = () => {
 	return (
 		<div className='lotsPage'>
 			<Navbar></Navbar>
-			<Box sx={{ width: 500 }}>
-				<BottomNavigation
-					showLabels
-					value={value}
-					onChange={(event, newValue) => {
-						setValue(newValue);
-					}}
-				>
-					<BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-					<BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-					<BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
-				</BottomNavigation>
-			</Box>
-			<br />
-			<Button variant="contained" component="label">Upload<input hidden multiple type="file" onChange={readUploadFile} /></Button>
-			<Button variant="contained" onClick={handleClick}>Upload Lot Spreadsheet</Button>
-			<br />
+			<div className='buttons'>
+			
+				<Button variant="contained" component="label" startIcon={<CreateNewFolderIcon/>}>
+					Select CSV
+					<input hidden multiple type="file" onChange={readUploadFile} />
+				</Button>
+
+				<Button variant="contained" onClick={handleClick} startIcon={<PublishIcon />}>
+					Upload CSV
+				</Button>
+			</div>
 			<div className='materialTable'>
-				<MaterialTable title='Control Stations'
+				<MaterialTable title='Lots'
 					data={data}
 					columns={COLS}
 					options={{
