@@ -11,11 +11,9 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import Button from '@mui/material/Button';
 
 export const Lots = () => {
-	var [maxID, setMaxID] = useState(0)
 	var [reset, setReset] = useState(0)
 	var [data, setData] = useState([])
 	var [Production_Systems, setProduction_Systems] = useState([])
-	var [Control_Stations, setControl_Stations] = useState([])
 	var [uploadedSheet, setUploadedSheet] = useState([])
 
 	useEffect(() => {
@@ -30,15 +28,6 @@ export const Lots = () => {
 	useEffect(() => {
 		axiosGet('Production_Systems').then((e) => {
 			setProduction_Systems(e.data)
-		})
-			.catch((err) => {
-				console.log(err.message)
-			})
-	}, [])
-
-	useEffect(() => {
-		axiosGet('Control_Stations').then((e) => {
-			setControl_Stations(e.data)
 		})
 			.catch((err) => {
 				console.log(err.message)
@@ -71,50 +60,10 @@ export const Lots = () => {
 		{ field: "date_closed", title: "Date closed", editable: 'onAdd' },
 		{ field: "status_", title: "Status", editable: 'onAdd' },
 		{ field: "comments", title: "Comments", editable: 'onAdd' },
-		{ field: "qr_lot_generated", title: "QR Lot Generated", lookup: { 0: 0, 1: 1 } },
-		{ field: "is_printed", title: "Printed", lookup: { 0: 0, 1: 1 } },
+		{ field: "qr_lot_generated", title: "QR Lot Generated", lookup: { '0': '0', '1': '1' } },
+		{ field: "is_printed", title: "Printed", lookup: { '0': '0', '1': '1'} },
 		{ field: "production_system_name", title: "Production System", lookup: getProductionSystems() },
 	]
-
-	const getMaxID = () => {
-		axiosGet('MaxID').then((r) => {
-			setMaxID(r.data[0][""])
-		}).catch((e) => {
-			console.log(e)
-			console.log('postError')
-		})
-	}
-
-	const createQRLot = (lot) => {
-		console.log(Control_Stations)
-		console.log(getMaxID())
-		var count = maxID
-
-		// for (let i = 0; i < system_stations.length; i++) {
-		// 	for (let j = 0; j < Station_Data[i][2]; j++) {
-		// 		count = count + 1
-		// 		var nthQR = new QR(
-		// 			count,
-		// 			Station_Data[i][0],
-		// 			lot.lot_number,
-		// 			lot.production_system_name,
-		// 			Station_Data[i][3],
-		// 			0,
-		// 			getSQLDateTime(),
-		// 			'1900-01-01 00:00:00',
-		// 			lot.production_system_name + '-' + lot.lot_number + '-' + Station_Data[i][0] + '-' + count
-		// 		)
-
-		// 		axiosPost(nthQR, 'QR').then((r) => {
-		// 			console.log(r)
-		// 		}).catch((e) => {
-		// 			console.log(e)
-		// 			console.log('postError')
-		// 		});
-		// 	}
-		// }
-
-	}
 
 	const readUploadFile = (e) => {
 		e.preventDefault();
@@ -141,6 +90,7 @@ export const Lots = () => {
 			console.log(e)
 			console.log('postError')
 		})
+		setReset(reset++)
 		setUploadedSheet([])
 	}
 
