@@ -7,7 +7,6 @@ import "./Lots.scss"
 import { read, utils } from "xlsx"
 import * as React from 'react';
 import PublishIcon from '@mui/icons-material/Publish';
-import IconButton from '@mui/material/IconButton';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import Button from '@mui/material/Button';
 
@@ -88,7 +87,7 @@ export const Lots = () => {
 
 	const createQRLot = (lot) => {
 		console.log(Control_Stations)
-		getMaxID()
+		console.log(getMaxID())
 		var count = maxID
 
 		// for (let i = 0; i < system_stations.length; i++) {
@@ -114,6 +113,7 @@ export const Lots = () => {
 		// 		});
 		// 	}
 		// }
+
 	}
 
 	const readUploadFile = (e) => {
@@ -136,7 +136,7 @@ export const Lots = () => {
 		axiosPost(uploadedSheet, 'Upload_Lots').then((r) => {
 			console.log(uploadedSheet)
 			console.log(r)
-			setReset(reset + 1)
+			setReset(reset++)
 		}).catch((e) => {
 			console.log(e)
 			console.log('postError')

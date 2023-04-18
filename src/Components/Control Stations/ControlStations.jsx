@@ -43,7 +43,7 @@ export const ControlStations = () => {
 		{ field: "production_system_name", title: "Production System Name", lookup: getProductionSystems()},
 		{ field: "station_type", title: "Station Type", lookup: {scan: 'scan', form: 'form'}},
 		{ field: "bundle_size", title: "Bundle Size" },
-		{ field: "date_created", title: "Date Created" }
+		{ field: "date_created", title: "Date Created", editable: "none" }
 	]
 
 	return (
@@ -66,14 +66,23 @@ export const ControlStations = () => {
 						onRowAdd: newData =>
 							new Promise((resolve, reject) => {
 
-								axiosPost(newData, 'Control_Stations').then((r) => {
+								let brocolli = new Control_Station(
+									newData.station_name,
+									newData.production_system_name,
+									newData.station_type,
+									newData.bundle_size,
+									getSQLDateTime()
+								)
+
+								axiosPost(brocolli, 'Control_Stations').then((r) => {
 									console.log(r)
-									setReset(reset++)
+									setReset(reset + 1);
 									resolve();
 								}).catch((e) => {
 									console.log(e)
 									console.log('postError')
 								})
+								setReset(reset + 1);
 							}),
 
 						onRowUpdate: (newData, oldData) => {
@@ -89,13 +98,13 @@ export const ControlStations = () => {
 
 								axiosPost(brocolli, 'Update_Control_Stations').then((r) => {
 									console.log(r);
-									setReset(reset++)
+									setReset(reset + 1);
 									resolve();
 								}).catch((e) => {
 									console.log(e)
 									console.log('postError')
 								})
-								setReset(reset++)
+								setReset(reset + 1);
 							});
 						},
 						onRowDelete: oldData =>
@@ -109,10 +118,8 @@ export const ControlStations = () => {
 									console.log(e)
 									console.log('postError')
 								})
-
-
+								setReset(reset + 1);
 							}),
-
 					}} />
 			</div>
 		</div>
