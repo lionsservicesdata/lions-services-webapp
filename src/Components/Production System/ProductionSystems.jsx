@@ -23,9 +23,8 @@ export const ProductionSystems = () => {
 	const COLS = [
 		{ field: "production_system_name", title: "Production System Name", editable: 'onAdd' },
 		{ field: "product_name", title: "Product Name" },
-		{ field: "date_created", title: "Date Created", editable: 'none' }
+		{ field: "date_created", title: "Date Created", editable: 'never'}
 	]
-
 	return (
 		<div className='productionSystemsPage'>
 			<Navbar></Navbar>

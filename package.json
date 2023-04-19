@@ -2,6 +2,7 @@
   "name": "lions-services-webapp",
   "version": "1.0.0",
   "scripts": {
+    "dev": "vite dev",
     "preview": "vite preview",
     "build": "vite build",
     "start": "vite"

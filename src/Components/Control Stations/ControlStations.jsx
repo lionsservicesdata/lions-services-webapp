@@ -43,7 +43,7 @@ export const ControlStations = () => {
 		{ field: "production_system_name", title: "Production System Name", lookup: getProductionSystems()},
 		{ field: "station_type", title: "Station Type", lookup: {scan: 'scan', form: 'form'}},
 		{ field: "bundle_size", title: "Bundle Size" },
-		{ field: "date_created", title: "Date Created", editable: "none" }
+		{ field: "date_created", title: "Date Created", editable: "never" }
 	]
 
 	return (
