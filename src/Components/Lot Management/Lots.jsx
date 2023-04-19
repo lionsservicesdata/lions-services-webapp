@@ -39,6 +39,7 @@ export const Lots = () => {
 		for (let i = 0; i < Production_Systems.length; i++) {
 			APS = { ...APS, [Production_Systems[i].production_system_name]: Production_Systems[i].production_system_name };
 		}
+		console.log(APS)
 		return APS;
 	}
 
@@ -60,8 +61,8 @@ export const Lots = () => {
 		{ field: "date_closed", title: "Date closed", editable: 'onAdd' },
 		{ field: "status_", title: "Status", editable: 'onAdd' },
 		{ field: "comments", title: "Comments", editable: 'onAdd' },
-		{ field: "qr_lot_generated", title: "QR Lot Generated", lookup: { '0': '0', '1': '1' } },
-		{ field: "is_printed", title: "Printed", lookup: { '0': '0', '1': '1'} },
+		{ field: "qr_lot_generated", title: "QR Lot Generated", lookup: { 0: 'No', 1: 'Yes' } },
+		{ field: "is_printed", title: "Printed", lookup: { 0: 'No', 1: 'Yes'} },
 		{ field: "production_system_name", title: "Production System", lookup: getProductionSystems() },
 	]
 

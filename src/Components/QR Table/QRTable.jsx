@@ -2,13 +2,10 @@ import { Navbar } from '../Common/Navbar/Navbar'
 import React from 'react'
 import { axiosPost, axiosGet } from '../../Util/API'
 import { useState, useEffect } from 'react'
-import { QR } from '../../Util/QR'
 import MaterialTable from "@material-table/core"
 import Button from '@mui/material/Button';
 import "./QRTable.scss"
-
 import PublishIcon from '@mui/icons-material/Publish';
-
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -55,6 +52,7 @@ export const QRTable = () => {
 	]
 
 	const handleChange = (event) => {
+		console.log(event)
 		setLotNumber(event.target.value);
 	};
 
@@ -69,7 +67,6 @@ export const QRTable = () => {
 
 	const handleClick = () => {
 		axiosPost(lotNumber, 'Generate_Single_Lot').then((r) => {
-
 			console.log(r)
 			setReset(reset++)
 		}).catch((e) => {

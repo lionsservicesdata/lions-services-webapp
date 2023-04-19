@@ -16,12 +16,12 @@ export class  Lot {
     date_closed: string;
     status_: string;
     comments: string;
-    qr_lot_genereted: number;
+    qr_lot_generated: number;
     is_printed: number;
     production_system_name: string;
 
   
-    constructor(lot_number: string,order_: string,order_date: string,clin: string,nsn_number: string,item_number: string,item_description: string,qty_ordered: string,u_m: string,due_date: string,customer: string,contract_number: string,date_open: string,date_start: string,date_closed: string,status_: string,comments: string, qr_lot_genereted: number, is_printed: number, production_system_name: string){
+    constructor(lot_number: string,order_: string,order_date: string,clin: string,nsn_number: string,item_number: string,item_description: string,qty_ordered: string,u_m: string,due_date: string,customer: string,contract_number: string,date_open: string,date_start: string,date_closed: string,status_: string,comments: string, qr_lot_generated: number, is_printed: number, production_system_name: string){
         this.lot_number = lot_number
         this.order_ = order_
         this.order_date = order_date
@@ -39,7 +39,7 @@ export class  Lot {
         this.date_closed = date_closed
         this.status_ = status_
         this.comments = comments
-        this.qr_lot_genereted = qr_lot_genereted
+        this.qr_lot_generated = qr_lot_generated
         this.is_printed = is_printed
         this.production_system_name = production_system_name
     }
