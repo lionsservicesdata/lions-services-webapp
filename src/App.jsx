@@ -13,12 +13,9 @@ export const App = () => {
 		<div className='cont'>
 			<BrowserRouter>
 				<Switch>
-					<Route path="/" exact component={Home} />
-					<Route path="/QRScanner" component={QRScanner} />
-					<Route path="/Lots" component={Lots} />
-					<Route path="/ProductionSystems" exact component={ProductionSystems} />
-					<Route path="/ControlStations" exact component={ControlStations} />
-					<Route path="/QRTable" exact component={QRTable} />
+
+					<Route path="/" component={QRScanner} />
+
 				</Switch>
 			</BrowserRouter>
 		</div>

@@ -27,7 +27,6 @@ export const ProductionSystems = () => {
 	]
 	return (
 		<div className='productionSystemsPage'>
-			<Navbar></Navbar>
 			<div className='materialTable'>
 				<MaterialTable title='Production Systems'
 					data={data}

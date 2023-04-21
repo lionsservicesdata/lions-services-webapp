@@ -48,7 +48,6 @@ export const ControlStations = () => {
 
 	return (
 		<div className='controlStationsPage'>
-			<Navbar></Navbar>
 			<div className='materialTable'>
 				<MaterialTable title='Control Stations'
 					data={data}
