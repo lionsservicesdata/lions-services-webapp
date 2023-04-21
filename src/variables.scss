@@ -10,6 +10,7 @@
 
 	font-family: 'Nunito';
 	outline: none;
+	
 }
 
 @mixin center {
@@ -20,7 +21,7 @@
 
 @mixin materialTableFormat {
 	@include root;
-	margin: 1%;
+	padding: 1%;
 }
 
 @mixin buttonBar {
