@@ -1,7 +1,13 @@
+@import "../../variables.scss";
+
 .materialTable {
-    padding: 1%;
+    @include materialTableFormat;
 }
 
-.generateLot {
-    padding: 1%;
+.buttonBar {
+    @include buttonBar
+}
+
+.button {
+    @include button
 }

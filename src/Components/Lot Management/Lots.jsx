@@ -62,7 +62,7 @@ export const Lots = () => {
 		{ field: "status_", title: "Status", editable: 'onAdd' },
 		{ field: "comments", title: "Comments", editable: 'onAdd' },
 		{ field: "qr_lot_generated", title: "QR Lot Generated", lookup: { 0: 'No', 1: 'Yes' } },
-		{ field: "is_printed", title: "Printed", lookup: { 0: 'No', 1: 'Yes'} },
+		{ field: "is_printed", title: "Printed", lookup: { 0: 'No', 1: 'Yes' } },
 		{ field: "production_system_name", title: "Production System", lookup: getProductionSystems() },
 	]
 
@@ -98,16 +98,18 @@ export const Lots = () => {
 	return (
 		<div className='lotsPage'>
 			<Navbar></Navbar>
-			<div className='buttons'>
-			
-				<Button variant="contained" component="label" startIcon={<CreateNewFolderIcon/>}>
-					Select CSV
-					<input hidden multiple type="file" onChange={readUploadFile} />
-				</Button>
-
-				<Button variant="contained" onClick={handleClick} startIcon={<PublishIcon />}>
-					Upload CSV
-				</Button>
+			<div className='buttonBar'>
+				<div className='button'>
+					<Button variant="contained" component="label" startIcon={<CreateNewFolderIcon />}>
+						Select CSV
+						<input hidden multiple type="file" onChange={readUploadFile} />
+					</Button>
+				</div>
+				<div className='button'>
+					<Button variant="contained" onClick={handleClick} startIcon={<PublishIcon />}>
+						Upload CSV
+					</Button>
+				</div>
 			</div>
 			<div className='materialTable'>
 				<MaterialTable title='Lots'

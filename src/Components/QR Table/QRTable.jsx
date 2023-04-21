@@ -12,8 +12,6 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-
-
 export const QRTable = () => {
 	var [QRTable, setQRTable] = useState([])
 	var [reset, setReset] = useState(0)
@@ -78,35 +76,35 @@ export const QRTable = () => {
 
 	return (
 		<div className='QRPage'>
-			<Navbar></Navbar>
+			<Navbar />
+			<div className='buttonBar'>
+				<div className='button'>
+					<FormControl sx={{ m: 1, minWidth: 120 }}>
+						<InputLabel id="demo-simple-select-helper-label" >Lot Number</InputLabel>
+						<Select
+							labelId="demo-simple-select-helper-label"
+							id="demo-simple-select-helper"
+							value={lotNumber}
+							label="Lot Number"
+							onChange={handleChange}
+						>
+							{Object.keys(lotsJSON).map((key, i) => (
+								<MenuItem key={i} value={lotsJSON[key]}>
+									{lotsJSON[key]}
+								</MenuItem>
+							))}
 
-			<div>
-				<FormControl sx={{ m: 1, minWidth: 120 }}>
-					<InputLabel id="demo-simple-select-helper-label" >Lot Number</InputLabel>
-					<Select
-						labelId="demo-simple-select-helper-label"
-						id="demo-simple-select-helper"
-						value={lotNumber}
-						label="Lot Number"
-						onChange={handleChange}
-					>
-						{Object.keys(lotsJSON).map((key, i) => (
-							<MenuItem key={i} value={lotsJSON[key]}>
-								{lotsJSON[key]}
-							</MenuItem>
-						))}
+						</Select>
+						<FormHelperText>Select Lot for QR Generation</FormHelperText>
+					</FormControl>
+				</div>
 
-					</Select>
-					<FormHelperText>Select Lot for QR Generation</FormHelperText>
-				</FormControl>
+				<div className='button'>
+					<Button variant="contained" onClick={handleClick} startIcon={<PublishIcon />}>
+						Generate QR Lot
+					</Button>
+				</div>
 			</div>
-			<div className = 'generateLot'>
-			<Button variant="contained" onClick={handleClick} startIcon={<PublishIcon />}>
-					Generate QR Lot
-				</Button>
-			</div>
-
-
 			<div className='materialTable'>
 				<MaterialTable title='QR Codes'
 					data={QRTable}

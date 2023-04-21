@@ -1,11 +1,15 @@
+@import "../../../variables.scss";
+
 .navbar {
+	@include root;
 	list-style-type: none;
-	margin: 0;
 	padding: 1%;
 	overflow: hidden;
-	background-color: royalblue;
+	background-color: var(--DarkBlue);
+
   }
 
   li {
+	@include root;
 	float: left;
   }

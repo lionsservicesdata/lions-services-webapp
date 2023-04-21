@@ -8,6 +8,6 @@
 }
 
 .cont {
-	background-color: #CCCCCC;
-	
+	@include root;
+	background-color: var(--Grey);
 }

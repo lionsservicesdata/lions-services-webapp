@@ -1,8 +1,0 @@
-@import "../../../variables.scss";
-.buttonCont {
-	background-color: var(--ac);
-	padding: 1rem 5rem;
-	user-select: none;
-	@include center;
-	color: var(--t);
-}

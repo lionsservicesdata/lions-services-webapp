@@ -1,14 +1,22 @@
+@import "../../variables.scss";
+
 .qrScannerPage {
+    @include root;
     display: block;
     width: 100%;
     text-align: center;
+    height: 1340px;
 }
 
 .qrScannerContent {
+    @include root;
     margin: 0px auto;
     display: block;
-    width: 75%;
-    border:1px solid red;   
+    width: 80%;
     text-align: center;
 }
 
+.logoDiv {
+    @include root;
+    width: 100%;
+}

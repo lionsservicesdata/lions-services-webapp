@@ -1,4 +1,4 @@
-import { Navbar } from '../Common/Navbar/Navbar';
+
 import { QrReader } from 'react-qr-reader'
 import { useState } from 'react'
 import React from 'react'
@@ -6,6 +6,7 @@ import { QRSCAN } from '../../Util/QRSCAN';
 import { axiosPost } from '../../Util/API';
 import { getSQLDateTime } from '../../Util/HelperFunctions';
 import "./QRScanner.scss"
+import logo from "../../Assets/lions_logo.png"
 
 export const QRScanner = () => {
 	const [success, setSuccess] = useState(false);
@@ -33,6 +34,9 @@ export const QRScanner = () => {
 
 	return (
 		<div className='qrScannerPage'>
+			<div className='logoDiv'>
+			<img src={logo} width="70%"></img>
+			</div>
 			{success ?
 				<div style={{ position: "absolute", display: "block", top: 0, left: 0, width: "100%", height: "100vh", zIndex: 3, backgroundColor: "rgba(143, 206, 0, .65)" }}>
 					<div style={{ position: "absolute", top: "40%", display: "block", color: 'White', fontSize: 100, margin: "0px auto", textAlign: 'middle', width: '100%' }}>
@@ -59,7 +63,9 @@ export const QRScanner = () => {
 					/>
 					{data != null ? <h1>Last Scanned bundle: {data}</h1> : <></>}
 				</div>}
-			<button onClick={() => { switchEnvironment() }}>switch camera</button>
+				
+				<button onClick={() => { switchEnvironment() }}>switch camera</button>
 		</div>
+		
 	)
 }

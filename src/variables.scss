@@ -1,38 +1,15 @@
 @mixin root {
-
-	// Dark mode
-	--bg: #1D2125;
-	--bg-i: #FFFFFF;
-	--ac: #24292E;
-	--t: #FFFFFF;
-	--t-i: #000000;
-
-	// Light mode
-	// --bg: #F3F3F3;
-	// --bg-i: #1D2125;
-	// --ac: #FFFFFF;
-	// --t: #000000;
-	// --t-i: #FFFFFF;
+	--DarkBlue: #010E5F;
+	--LightYellow: #FFEB87;
+	--Blue: #00529C;
+	--Grey: #8D9091;
+	--GradientLightBlue: #2CD5FE;
+	--GradientBlue: #1658f0;
+	--GradientLightGreen: #2CF553;
+	--GradientGreen: #128625;
 
 	font-family: 'Nunito';
 	outline: none;
-}
-
-@mixin rBox {
-	border-radius: .75rem;
-}
-
-@mixin rrBox {
-	border-radius: 2rem;
-}
-
-@mixin dropShadow {
-	box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.03);
-}
-
-@mixin icon {
-	stroke: var(--t);
-	fill: var(--t);
 }
 
 @mixin center {
@@ -41,8 +18,19 @@
 	display: flex;
 }
 
-@mixin space1rem {
-	flex-direction: column;
-	display: flex;
-	gap: 1rem;
+@mixin materialTableFormat {
+	@include root;
+	margin: 1%;
+}
+
+@mixin buttonBar {
+	@include root;
+    padding: 1%;
+}
+
+@mixin button {
+	@include root;
+    padding: 1%;
+    display: inline-block;
+	vertical-align: middle;
 }
