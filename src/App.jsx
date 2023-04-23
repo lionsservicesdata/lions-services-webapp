@@ -13,9 +13,7 @@ export const App = () => {
 		<div className='cont'>
 			<BrowserRouter>
 				<Switch>
-
 					<Route path="/" component={QRScanner} />
-
 				</Switch>
 			</BrowserRouter>
 		</div>
