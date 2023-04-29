@@ -114,7 +114,8 @@ export const QRTable = () => {
 						pageSize: 25,       // make initial page size
 						emptyRowsWhenPaging: false,   // To avoid of having empty rows
 						pageSizeOptions: [10, 15, 20, 25, 50, 100, 200],    // rows selection options
-						actionsColumnIndex: 4
+						actionsColumnIndex: 4,
+						filtering: true
 					}}
 					editable={{
 						onRowAdd: newData =>
