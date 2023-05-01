@@ -4,6 +4,7 @@ const natalie_sql = 'seniordesigndata.database.windows.net'
 var server = ''
 server = natalie_sql
 
+const functions = require("firebase-functions");
 const bodyParser = require('body-parser')
 const express = require('express');
 const app = express();
