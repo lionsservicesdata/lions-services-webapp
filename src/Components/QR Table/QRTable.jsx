@@ -26,7 +26,7 @@ export const QRTable = () => {
 			.catch((err) => {
 				console.log(err.message)
 			})
-	}, [])
+	}, [reset])
 
 	useEffect(() => {
 		axiosGet('Lots').then((e) => {
@@ -52,6 +52,7 @@ export const QRTable = () => {
 	const handleChange = (event) => {
 		console.log(event)
 		setLotNumber(event.target.value);
+		setReset(reset++)
 	};
 
 	function getLots() {

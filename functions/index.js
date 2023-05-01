@@ -1,33 +1,30 @@
 
 //Initializations
-
 const natalie_sql = 'seniordesigndata.database.windows.net'
 var server = ''
 server = natalie_sql
 
-const functions = require("firebase-functions");
+const bodyParser = require('body-parser')
 const express = require('express');
 const app = express();
 const sql = require('mssql');
 const cors = require('cors');
-const bodyParser = require('body-parser')
 
-app.use(bodyParser.urlencoded({ extended:  true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors())
 
-
 const config = {
-    user: 'CloudSA2d97a179', // sql user
-    password: '8w0Zq@^*^8C!', //sql user password
-    server: server,
-    database: 'Webapp',
-    options: {
-        trustedconnection: true,
-        enableArithAbort: true,
-    },
-    trustServerCertificate: true,
-    port: 1433
+  user: 'CloudSA2d97a179', // sql user
+  password: '8w0Zq@^*^8C!', //sql user password
+  server: server,
+  database: 'Webapp',
+  options: {
+    trustedconnection: true,
+    enableArithAbort: true,
+  },
+  trustServerCertificate: true,
+  port: 1433
 }
 
 class QR {
@@ -66,6 +63,10 @@ const getSQLDateTime = () => {
   return datetime
 }
 
+function ExcelDateToJSDate(date) {
+  return new Date(Math.round((date - 25569)*86400*1000));
+}
+
 async function getTable(tableName) {
   try {
     let pool = await sql.connect(config);
@@ -76,6 +77,18 @@ async function getTable(tableName) {
     console.log(error);
   }
 }
+
+async function getQRTable() {
+  try {
+    let pool = await sql.connect(config);
+    let rows = await pool.request().query('SELECT * FROM QR ORDER BY id');
+    return rows.recordsets;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
 
 async function getStationsGivenProductionSystems(production_system_name) {
   try {
@@ -105,7 +118,7 @@ async function updateLotGenerated(lot_number) {
   try {
     let pool = await sql.connect(config);
     let input = await pool.request()
-      .query("UPDATE [dbo].[Lots] SET qr_lot_generated = 1 WHERE lot_number = '" + lot_number+"'")
+      .query("UPDATE [dbo].[Lots] SET qr_lot_generated = 1 WHERE lot_number = '" + lot_number + "'")
     return input.recordsets;
   } catch (error) {
     console.log(error)
@@ -124,9 +137,10 @@ async function getMaxID() {
 }
 
 async function getLotFromLotNumber(lot_number) {
+  console.log(lot_number)
   try {
     let pool = await sql.connect(config);
-    let rows = await pool.request().query("SELECT * FROM Lots WHERE lot_number = '" + lot_number+"'");
+    let rows = await pool.request().query("SELECT * FROM Lots WHERE lot_number = '" + lot_number + "'");
     console.log(rows.recordsets[0][0])
     return rows.recordsets[0][0]
   }
@@ -136,6 +150,7 @@ async function getLotFromLotNumber(lot_number) {
 }
 
 async function Upload_Lots(data) {
+  console.log(data)
   const length = Object.keys(data).length
   for (let i = 0; i < length; i++) {
     data[i].is_printed = 0
@@ -150,23 +165,26 @@ async function populateQRLots(data) {
 }
 
 async function createQRLot(lot_number) {
+  console.log(lot_number)
   getLotFromLotNumber(lot_number).then((lot) => {
     getTable("Production_Systems").then((productionSystems) => {
       getStationsGivenProductionSystems(productionSystems[0][0].production_system_name).then((stations) => {
-        stations[0].forEach(station => {
-          console.log(station)
-          createQRStationLot(station, lot)
+        getMaxID().then((initialMaxId) => {
+          station_index = 0
+          stations[0].forEach(station => {
+            createQRStationLot(station, lot, initialMaxId, station_index)
+            station_index = station_index + 1
+          })
+          updateLotGenerated(lot_number)
         })
-        updateLotGenerated(lot_number)
       })
     })
   })
 }
 
-async function createQRStationLot(station, lot) {
-  getMaxID().then((maxID) => {
-    numberOfQRCodes = Math.floor(Number(lot.qty_ordered) / Number(station.bundle_size))
-    for (let i = maxID + 1; i < maxID + 1 + numberOfQRCodes; i++) {
+async function createQRStationLot(station, lot, initialMaxId, station_index) {
+  numberOfQRCodes = Math.floor(Number(lot.qty_ordered) / Number(station.bundle_size))
+    for (let i = initialMaxId + numberOfQRCodes*station_index + 1; i < initialMaxId + 1 + numberOfQRCodes*(station_index+1); i++) {
       let temp = new QR(
         i,
         station.station_name,
@@ -176,12 +194,10 @@ async function createQRStationLot(station, lot) {
         0,
         getSQLDateTime(),
         '1900-01-01 00:00:00',
-        station.production_system_name.concat("-", lot.lot_number, "-", station.station_name, i)
+        station.production_system_name.concat("-", lot.lot_number, "-", station.station_name, "-",i)
       )
-      console.log(temp)
       postQR(temp)
     }
-  })
 }
 
 // Post Helper Functions
@@ -202,6 +218,7 @@ async function postProduction_System(data) {
 }
 
 async function postLot(data) {
+  console.log(data)
   try {
     let pool = await sql.connect(config);
     //Potentially Iterate over input with data. Data becomes huge array of all of them.
@@ -548,7 +565,7 @@ app.post('/Delete_Control_Stations', function (req, res) {
 app.get('/QR', (req, res) => {
   try {
     console.log('GET Request Received')
-    getTable('QR').then((data) => {
+    getQRTable().then((data) => {
       res.send(data[0]);
     })
     console.log('GET Response Sent')
