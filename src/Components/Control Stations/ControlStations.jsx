@@ -4,7 +4,7 @@ import { Control_Station } from '../../Util/Control_Station';
 import { useState, useEffect } from 'react';
 import { getSQLDateTime } from '../../Util/HelperFunctions';
 import { axiosPost, axiosGet } from '../../Util/API';
-import MaterialTable from "@material-table/core"
+import MaterialTable from "@material-table/core/"
 import "./ControlStations.scss"
 
 export const ControlStations = () => {
