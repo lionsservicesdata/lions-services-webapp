@@ -4,6 +4,7 @@ const natalie_sql = 'seniordesigndata.database.windows.net'
 var server = ''
 server = natalie_sql
 
+const functions = require("firebase-functions");
 const bodyParser = require('body-parser')
 const express = require('express');
 const app = express();
@@ -71,6 +72,17 @@ async function getTable(tableName) {
   try {
     let pool = await sql.connect(config);
     let rows = await pool.request().query('SELECT * FROM ' + tableName);
+    return rows.recordsets;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+async function isScanned(id) {
+  try {
+    let pool = await sql.connect(config);
+    let rows = await pool.request().query('SELECT scanned FROM QR WHERE id = '+id);
     return rows.recordsets;
   }
   catch (error) {
@@ -441,7 +453,12 @@ async function deleteControl_Stations(data) {
 app.post('/QRSCAN', function (req, res) {
   console.log('QR SCAN RECEIVED')
   let data = { ...req.body }
-  scanQR(data)
+  isScanned(data.id).then((r) => {
+    if (r[0][0].scanned == 0) {
+      scanQR(data)
+    }
+  })
+  
   res.end();
   console.log('QR SCAN SUCCESSFUL')
 });
