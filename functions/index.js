@@ -1,9 +1,5 @@
 
 //Initializations
-const natalie_sql = 'seniordesigndata.database.windows.net'
-var server = ''
-server = natalie_sql
-
 const functions = require("firebase-functions");
 const bodyParser = require('body-parser')
 const express = require('express');
@@ -18,7 +14,7 @@ app.use(cors())
 const config = {
   user: 'CloudSA2d97a179', // sql user
   password: '8w0Zq@^*^8C!', //sql user password
-  server: server,
+  server: 'seniordesigndata.database.windows.net',
   database: 'Webapp',
   options: {
     trustedconnection: true,
