@@ -6,12 +6,10 @@ import { QRSCAN } from '../../Util/QRSCAN';
 import { axiosPost } from '../../Util/API';
 import { getSQLDateTime } from '../../Util/HelperFunctions';
 import "./QRScanner.scss"
-import logo from "../../Assets/lions_logo.png"
 
 export const QRScanner = () => {
 	const [success, setSuccess] = useState(false);
 	var [data, setData] = useState();
-	var audio = new Audio('../src/Assets/beep.mp3');
 	const [environment, setEnv] = useState("environment");
 
 	const scanQR = (data) => {
@@ -35,7 +33,6 @@ export const QRScanner = () => {
 	return (
 		<div className='qrScannerPage'>
 			<div className='logoDiv'>
-			<img src={logo} width="70%"></img>
 			</div>
 			{success ?
 				<div style={{ position: "absolute", display: "block", top: 0, left: 0, width: "100%", height: "100vh", zIndex: 3, backgroundColor: "rgba(143, 206, 0, .65)" }}>
@@ -49,7 +46,6 @@ export const QRScanner = () => {
 					<QrReader onResult={(result, error) => {
 						if (!!result) {
 							setData(result?.text);
-							audio.play();
 							successHandler();
 							console.log(result);
 							if (result != undefined) {
