@@ -2,9 +2,9 @@ import axios from 'axios';
 
 
 const local = 'http://127.0.0.1:3001';
-const noahs_laptops = 'http://192.168.1.119:3001'
+const ricardos_laptops = 'http://192.168.1.145:3001'
 
-const base = noahs_laptops
+const base = ricardos_laptops
 
 //GET Request
 export const axiosGet = async (route) => {
